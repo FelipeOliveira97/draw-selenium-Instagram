@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using DrawBotInstagram.Facades.Extensions;
 using DrawBotInstagram.Facades.Interfaces;
 using DrawBotInstagram.Models.Settings;
@@ -19,6 +20,11 @@ namespace BotInstagram
         
         static void Main(string[] args)
         {
+            MainAsync().GetAwaiter().GetResult();
+        }
+
+        private static async Task MainAsync()
+        {
             var serviceCollection = new ServiceCollection();
 
             var configuration = new ConfigurationBuilder()
@@ -31,8 +37,8 @@ namespace BotInstagram
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var instagramFacade = serviceProvider.GetService<IInstagramBotFacade>();
-
-            instagramFacade.ExecuteAsync(serviceProvider.GetService<GoogleSheetSettings>()).Wait();
+            
+            await instagramFacade.ExecuteAsync(serviceProvider.GetService<GoogleSheetSettings>());
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
