@@ -9,15 +9,35 @@ namespace DrawBotInstagram.Facades
     public class InstagramBotFacade : IInstagramBotFacade
     {
         private readonly IGoogleSheetService _sheetService;
+        private readonly IInstagramCrawlerService _instagramService;
         
-        public InstagramBotFacade(IGoogleSheetService sheetService)
+        public InstagramBotFacade(IGoogleSheetService sheetService, IInstagramCrawlerService instagramService)
         {
             _sheetService = sheetService;
+            _instagramService = instagramService;
         }
         
         public async Task ExecuteAsync(GoogleSheetSettings sheetSettings)
         {
             var users = await _sheetService.GetUserProfilesAsync(sheetSettings);
+
+            try
+            {
+                _instagramService.FactoryDriver();
+                
+                _instagramService.InstagramLogin();
+
+                if (_instagramService.IsLoggedInInstagram())
+                {
+                    _instagramService.EnterPromotion();
+
+                    _instagramService.PublishCommentUsersProfile(users);
+                }
+            }
+            finally
+            {
+                _instagramService.CloseDisposeDriver();
+            }
         }
     }
 }

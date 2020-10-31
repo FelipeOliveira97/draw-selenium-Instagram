@@ -3,7 +3,7 @@ using DrawBotInstagram.Models.Settings;
 using DrawBotInstagram.Services.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DrawBotInstagram.Facades
+namespace DrawBotInstagram.Facades.Extensions
 {
     public static class ServiceCollectionExtension
     {
@@ -11,7 +11,7 @@ namespace DrawBotInstagram.Facades
         {
             services.AddSingleton<IInstagramBotFacade, InstagramBotFacade>();
             
-            services.AddDataAccessServices(googleSheetSettings, applicationSettings);
+            services.AddServices(googleSheetSettings, applicationSettings);
             
             return services;
         }
