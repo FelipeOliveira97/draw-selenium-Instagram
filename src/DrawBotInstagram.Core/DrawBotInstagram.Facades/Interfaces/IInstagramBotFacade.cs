@@ -5,6 +5,6 @@ namespace DrawBotInstagram.Facades.Interfaces
 {
     public interface IInstagramBotFacade
     {
-        Task ExecuteAsync(GoogleSheetSettings sheetSettings);
+        Task CommentUsersProfileInPromotion(GoogleSheetSettings sheetSettings);
     }
 }

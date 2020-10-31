@@ -38,7 +38,7 @@ namespace BotInstagram
 
             var instagramFacade = serviceProvider.GetService<IInstagramBotFacade>();
             
-            await instagramFacade.ExecuteAsync(serviceProvider.GetService<GoogleSheetSettings>());
+            await instagramFacade.CommentUsersProfileInPromotion(serviceProvider.GetService<GoogleSheetSettings>());
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)

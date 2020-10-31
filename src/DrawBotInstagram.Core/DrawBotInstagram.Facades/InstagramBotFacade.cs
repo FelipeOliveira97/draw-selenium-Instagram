@@ -17,7 +17,7 @@ namespace DrawBotInstagram.Facades
             _instagramService = instagramService;
         }
         
-        public async Task ExecuteAsync(GoogleSheetSettings sheetSettings)
+        public async Task CommentUsersProfileInPromotion(GoogleSheetSettings sheetSettings)
         {
             var users = await _sheetService.GetUserProfilesAsync(sheetSettings);
 
